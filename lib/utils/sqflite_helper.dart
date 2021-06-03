@@ -1,13 +1,13 @@
-void main() {
-  String s = Table('students')
-      .primaryId()
-      .string('name', false)
-      .string('id', false)
-      .integer('rolls')
-      .timestamps()
-      .createTable();
-  print(s);
-}
+// void main() {
+//   String s = Table('students')
+//       .primaryId()
+//       .string('name', false)
+//       .string('id', false)
+//       .integer('rolls')
+//       .timestamps()
+//       .createTable();
+//   print(s);
+// }
 
 class Table {
   String tableName = '';
@@ -35,9 +35,8 @@ class Table {
     return this;
   }
 
-  Table primaryId([String id]) {
-    id ??= 'id';
-    this._columns.add('$id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY');
+  Table primaryId([String id = 'id']) {
+    this._columns.add('$id INTEGER PRIMARY KEY AUTOINCREMENT');
     return this;
   }
 

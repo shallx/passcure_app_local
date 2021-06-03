@@ -4,7 +4,7 @@ class Category extends Model {
   int id;
   String accountType;
 
-  static String table = 'students';
+  static String table = 'categories';
 
   Category({this.id, this.accountType});
 

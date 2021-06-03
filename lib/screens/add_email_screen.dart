@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:passcure/models/emails.dart';
 import 'package:passcure/services/db_services.dart';
+import 'package:passcure/shared/constant.dart';
 import 'package:passcure/shared/textfield_unfocus.dart';
 import 'package:passcure/widgets/text_field.dart';
 import '../shared/themedata.dart' show Margin;
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key key}) : super(key: key);
+class AddEmailScreen extends StatelessWidget {
+  AddEmailScreen({Key key}) : super(key: key);
   final Margin margin = Margin();
+  List dropDownList = ['Google', 'Yahoo', 'Microsoft', 'Other'];
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override
@@ -40,17 +42,31 @@ class HomeScreen extends StatelessWidget {
                       FormBuilderValidators.email(context)
                     ],
                   ),
-                  MCTextField('provider',
-                      validators: [FormBuilderValidators.required(context)]),
+                  Container(
+                    margin: margin.bottom,
+                    child: FormBuilderDropdown(
+                        name: 'provider',
+                        initialValue: dropDownList[0],
+                        decoration: Constants.inputDec,
+                        items: dropDownList
+                            .map((e) =>
+                                DropdownMenuItem(value: e, child: Text(e)))
+                            .toList()),
+                  ),
                   MCTextField(
                     'password',
                     validators: [FormBuilderValidators.required(context)],
                     isRequired: true,
                   ),
-                  MCTextField('refNumber', label: 'Number'),
+                  MCTextField(
+                    'refNumber',
+                    label: 'Number',
+                    keyboardType: TextInputType.number,
+                  ),
                   MCTextField(
                     'refEmail',
                     label: 'Reference Email',
+                    keyboardType: TextInputType.emailAddress,
                     validators: [
                       FormBuilderValidators.email(context),
                     ],
@@ -71,10 +87,14 @@ class HomeScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () async {
+                      // await DBService().dropTable();
                       List<Email> list = await DBService().getEmails();
                       list.forEach((e) {
+                        print("Name: ${e.id}");
                         print("Name: ${e.email}");
+                        print("Name: ${e.provider}");
                         print("Roll: ${e.password}");
+                        print("Roll: ${e.notes}");
                       });
                     },
                     child: Text("Get"),
@@ -87,32 +107,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-//   Widget buildTF(BuildContext context, String name,
-//       {String label,
-//       TextInputType keyboardType,
-//       var validators,
-//       bool isRequired = false,
-//       double bottomMargin}) {
-//     return Container(
-//       margin: Margin(bottomMargin ?? 15).bottom,
-//       child: FormBuilderTextField(
-//         name: name,
-//         keyboardType: keyboardType ?? TextInputType.text,
-//         // validator: FormBuilderValidators.compose([
-//         //   FormBuilderValidators.required(context),
-//         // ]),
-//         validator: FormBuilderValidators.compose(validators ?? []),
-//         decoration: Constants.inputDec.copyWith(
-//           labelText: Helper.toUC(label ?? name),
-//           suffix: isRequired
-//               ? Text(
-//                   "required",
-//                   style: TextStyle(color: Colors.red),
-//                 )
-//               : SizedBox(),
-//         ),
-//       ),
-//     );
-//   }
 }

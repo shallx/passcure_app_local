@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:passcure/models/model.dart';
-import 'package:passcure/shared/sqflite_helper.dart';
+import 'package:passcure/utils/sqflite_helper.dart';
 import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 
@@ -24,8 +24,10 @@ abstract class DB {
   }
 
   static void onCreate(Database db, int version) async {
-    // await db.execute(
-    //     Table('students').string('name').integer('roll').createTable());
+    await _createTable(db);
+  }
+
+  static Future<void> _createTable(Database db) async {
     await db.execute(Table('emails')
         .primaryId()
         .string('provider')
@@ -50,6 +52,28 @@ abstract class DB {
 
     await db.execute(
         Table('categories').primaryId().string('accountType').createTable());
+  }
+
+  static Future<void> dropTable() async {
+    try {
+      // var databasesPath = await getDatabasesPath();
+      // String _path = p.join(databasesPath, 'crud.db');
+      // _db = await openDatabase(_path, version: _version, onCreate: onCreate);
+      init();
+      await _db.execute('DROP TABLE IF EXISTS emails');
+      await _db.execute('DROP TABLE IF EXISTS accounts');
+      await _db.execute('DROP TABLE IF EXISTS categories');
+      await _createTable(_db);
+    } catch (ex) {
+      print(ex);
+    }
+  }
+
+  static Future<void> clearTable() async {
+    init();
+    await _db.execute('DELETE FROM emails');
+    await _db.execute('DELETE FROM accounts');
+    await _db.execute('DELETE FROM categories');
   }
 
   static Future<List<Map<String, dynamic>>> query(String table) async =>

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passcure/screens/home_screen.dart';
+import 'package:passcure/screens/add_account_screen.dart';
+import 'package:passcure/screens/add_email_screen.dart';
 import 'package:passcure/shared/themedata.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: CLThemeData().light(),
-      home: HomeScreen(),
+      home: AddAccountScreen(),
     );
   }
 }

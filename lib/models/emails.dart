@@ -9,7 +9,7 @@ class Email extends Model {
   String refEmail;
   String notes;
 
-  static String table = 'students';
+  static String table = 'emails';
 
   Email(
       {this.id,

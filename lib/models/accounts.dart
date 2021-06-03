@@ -16,13 +16,13 @@ class Account extends Model {
     this.notes
   });
 
-  static String table = 'students';
+  static String table = 'accounts';
 
   static Account fromMap(Map<String, dynamic> map) {
     return Account(
-      id: map['id'],
-      emailId: map['emailId'],
-      categoryId: map['categoryId'],
+      id: int.parse(map['id']),
+      emailId: int.parse(map['emailId']),
+      categoryId: int.parse(map['categoryId']),
       userName: map['userName'],
       password: map['password'],
       domainName: map['domainName'],
