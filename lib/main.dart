@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:passcure/screens/add_account_screen.dart';
-import 'package:passcure/screens/add_email_screen.dart';
-import 'package:passcure/screens/home_screen.dart';
 import 'package:passcure/shared/themedata.dart';
+import 'package:passcure/view/add_email_screen.dart';
 
 void main() {
   runApp(MyApp());
