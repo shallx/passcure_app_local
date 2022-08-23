@@ -1,0 +1,1 @@
+List emailCategories = ['Google', 'Yahoo', 'Microsoft', 'Other'];

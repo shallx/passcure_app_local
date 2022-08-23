@@ -4,73 +4,14 @@ class CLThemeData {
   CLThemeData();
 
   ThemeData light() {
-    ThemeData td = ThemeData.light();
-    ColorPalette c = ColorPalette.light();
-
-    return ThemeData(
-      scaffoldBackgroundColor: c.scaffold,
-      iconTheme: IconThemeData(
-        color: c.primary,
-      ), // Just Icon and IconButton
-      colorScheme: ColorScheme(
-        primary: c.primary, // Elevated Button Background,
-        //TextButton's child's text/icon color,outlinedbutton's
-        //child's text/icon color
-        onPrimary: c.onPrimary, // Elevated Buttons innerText color
-        primaryVariant: Colors.orange,
-        background: c.background,
-        onBackground: Colors.black,
-        secondary: c.secondary,
-        onSecondary: c.onSecondary,
-        secondaryVariant: Colors.deepOrange,
-        error: c.error,
-        onError: c.onError,
-        surface: Colors.white,
-        onSurface: Colors.black,
-        brightness: Brightness.light,
-      ),
-      appBarTheme: AppBarTheme(
-        backgroundColor: c.background,
-        actionsIconTheme: IconThemeData(color: c.primary),
-        iconTheme: IconThemeData(
-          color: c.primary, // Leading Widget's Color
-        ),
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            color: c.primary,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        elevation: 2,
-      ),
-      textTheme: TextTheme(
-        headline4: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-          color: Colors.black,
-        ),
-        headline5: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        headline6: TextStyle(
-          color: c.onBackground,
-          fontWeight: FontWeight.bold,
-        ),
-        subtitle1: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: c.primary,
-        foregroundColor: c.onPrimary,
-      ),
-    );
+    return getTheme(ColorPalette.light());
   }
 
   ThemeData dark() {
-    ThemeData td = ThemeData.dark();
-    ColorPalette c = ColorPalette.dark();
+    return getTheme(ColorPalette.dark());
+  }
 
+  ThemeData getTheme(ColorPalette c) {
     return ThemeData(
       scaffoldBackgroundColor: c.scaffold,
       iconTheme: IconThemeData(
@@ -81,12 +22,10 @@ class CLThemeData {
         //TextButton's child's text/icon color,outlinedbutton's
         //child's text/icon color
         onPrimary: c.onPrimary, // Elevated Buttons innerText color
-        primaryVariant: Colors.orange,
         background: c.background,
         onBackground: Colors.black,
         secondary: c.secondary,
         onSecondary: c.onSecondary,
-        secondaryVariant: Colors.deepOrange,
         error: c.error,
         onError: c.onError,
         surface: Colors.white,
@@ -99,14 +38,12 @@ class CLThemeData {
         iconTheme: IconThemeData(
           color: c.primary, // Leading Widget's Color
         ),
-        textTheme: TextTheme(
-          headline6: TextStyle(
-            color: c.primary,
-            fontSize: 17,
-            fontWeight: FontWeight.bold,
-          ),
+        titleTextStyle: TextStyle(
+          color: c.primary,
+          fontWeight: FontWeight.w500,
+          fontSize: 17,
         ),
-        elevation: 2,
+        elevation: 1,
       ),
       textTheme: TextTheme(
         headline4: TextStyle(

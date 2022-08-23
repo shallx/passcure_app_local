@@ -5,6 +5,8 @@ class Constants {
   static InputDecoration inputDec = InputDecoration(
     labelText: 'Email',
     border: OutlineInputBorder(),
+    isDense: true,
+    contentPadding: EdgeInsets.symmetric(vertical: 12, horizontal: 18),
   );
 }
 

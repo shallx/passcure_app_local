@@ -6,6 +6,7 @@ import 'package:passcure/models/emails.dart';
 import 'package:passcure/services/db_services.dart';
 import 'package:passcure/shared/constant.dart';
 import 'package:passcure/shared/textfield_unfocus.dart';
+import 'package:passcure/widgets/fallback_widget.dart';
 import 'package:passcure/widgets/text_field.dart';
 import '../shared/themedata.dart' show Margin;
 
@@ -65,16 +66,19 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                             style: Theme.of(context).textTheme.headline5,
                           ),
                         ),
-                        Container(
-                          margin: margin.bottom,
-                          child: FormBuilderDropdown(
-                            name: 'emailId',
-                            initialValue: emails[0].id,
-                            decoration: Constants.inputDec,
-                            items: emails
-                                .map((e) => DropdownMenuItem(
-                                    value: e.id, child: Text(e.email)))
-                                .toList(),
+                        FallbackWidget(
+                          check: emails,
+                          child: () => Container(
+                            margin: margin.bottom,
+                            child: FormBuilderDropdown(
+                              name: 'emailId',
+                              initialValue: emails.first.id,
+                              decoration: Constants.inputDec,
+                              items: emails
+                                  .map((e) => DropdownMenuItem(
+                                      value: e.id, child: Text(e.email)))
+                                  .toList(),
+                            ),
                           ),
                         ),
                         Container(
@@ -82,7 +86,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                           child: FormBuilderDropdown(
                             name: 'categoryId',
                             initialValue: categories[0].id,
-                            decoration: Constants.inputDec,
+                            decoration: Constants.inputDec
+                                .copyWith(labelText: "Category"),
                             items: categories
                                 .map((e) => DropdownMenuItem(
                                     value: e.id, child: Text(e.accountType)))
@@ -124,7 +129,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                         ElevatedButton(
                           onPressed: () async {
                             // await DBService().dropTable();
-                            List<Account> list = await DBService().getAccounts();
+                            List<Account> list =
+                                await DBService().getAccounts();
                             list.forEach((e) {
                               print("ID: ${e.id}");
                               print("Email Id: ${e.emailId}");

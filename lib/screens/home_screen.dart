@@ -56,28 +56,39 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   MCTextField('notes'),
-                  ElevatedButton(
-                    onPressed: () async {
-                      _formKey.currentState.save();
-                      if (_formKey.currentState.validate()) {
-                        print(_formKey.currentState.value);
-                        Email email =
-                            Email.fromMap(_formKey.currentState.value);
-                        DBService().addEmail(email);
-                        _formKey.currentState.reset();
-                      }
-                    },
-                    child: Text("Add this shit"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      List<Email> list = await DBService().getEmails();
-                      list.forEach((e) {
-                        print("Name: ${e.email}");
-                        print("Roll: ${e.password}");
-                      });
-                    },
-                    child: Text("Get"),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            _formKey.currentState.save();
+                            if (_formKey.currentState.validate()) {
+                              print(_formKey.currentState.value);
+                              Email email =
+                                  Email.fromMap(_formKey.currentState.value);
+                              DBService().addEmail(email);
+                              _formKey.currentState.reset();
+                            }
+                          },
+                          child: Text("Add"),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            List<Email> list = await DBService().getEmails();
+                            list.forEach((e) {
+                              print("Name: ${e.email}");
+                              print("Roll: ${e.password}");
+                            });
+                          },
+                          child: Text("Get"),
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
